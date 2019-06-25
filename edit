@@ -1,0 +1,37 @@
+<div class="container" style="margin-top: 60px;">
+	<?php 
+		if(isset($_SESSION['uid']))
+		{
+			$checkadm = mysql_fetch_array(mysql_query("SELECT * FROM `n_accounts` WHERE `id` ='" . $_SESSION['uid'] . "'"));
+			if ($checkadm['admin'] == 1) {
+				$check = mysql_fetch_array(mysql_query("SELECT `id` FROM `n_menu` WHERE `id`='" . $_GET['edit'] . "'"));
+            	if ($check[0] != null) {
+					if(isset($_GET['edit']))
+					{
+						$menu = mysql_fetch_array(mysql_query("SELECT * FROM `n_menu` WHERE `id` ='" . $_GET['edit']. "'"));
+						echo '<form name="edit" method="post">
+							 <input type="text" name="mnaem" required value="'.$menu['name'].'">
+							 <br>
+							 <input type="text" name="mweight" required value="'.$menu['weight'].'">
+							<br>
+							<input type="text" name="mprice" required value="'.$menu['price'].'">
+							<br>
+							
+							<input type="submit" name="edit">
+						</form>';
+					}
+				}
+				else{
+					echo "Такой мебели нет";
+				}
+				if(isset($_POST['edit']))
+				{
+					mysql_query("UPDATE `n_menu` SET `name`='" . $_POST['mname'] . "', `weight`='" . $_POST['mweight'] . "',  `price`='" . $_POST['mprice'] . "', `img`='" . $_POST['mimg'] . "' WHERE `id` ='" . $_GET['edit'] . "'");
+				}
+			}
+			else{
+				echo "Вы не являетесь администратором";
+			}
+		}
+	 ?>
+</div>
