@@ -1,0 +1,42 @@
+<style>
+	.header{
+		background-color: rgba(0,0,0,0.3);
+	}
+	ul{
+		list-style: none;
+		max-width: 1200px;
+		width: 100%;
+	}
+	li{
+		display: inline-block;
+	}
+	li:first-child{
+		float: left;
+	}
+</style>
+<header class="header">
+	<div class="container">
+		<div class="header_logo">
+			<ul>
+				<li><a href="/nikita">ПИRS</a></li>
+			</ul>
+			<nav class="nav">
+				<ul>
+					<li><a href="#about">О НАС</a></li>
+					<li><a href="#menu">МЕНЮ</a></li>
+					<li><a href="#cont">КОНТАКТЫ</a></li>
+					<?php 
+						if(isset($_SESSION['uid']))
+						{
+
+							echo '<li><a href="/nikita/?do=exit">ВЫХОД</a></li>';
+						}
+						else{
+							echo '<li><a href="/nikita/?p=auth">АВТОРИЗАЦИЯ</a></li>';
+						}
+					 ?>
+				</ui>
+			</nav>
+		</div>
+	</div>		
+</header>
