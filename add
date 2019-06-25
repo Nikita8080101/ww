@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 60px;">
+	<?php 
+		if(isset($_SESSION['uid']))
+		{
+			$checkadm = mysql_fetch_array(mysql_query("SELECT * FROM `n_accounts` WHERE `id` ='" . $_SESSION['uid'] . "'"));
+			if ($checkadm['admin'] == 1) {
+				if(isset($_POST['add'])){
+					mysql_query("INSERT INTO `n_menu` (`name`,`weight`, `price`, `img`)
+          VALUE('" . $_POST['mname'] . "','" . $_POST['mweight'] . "','" . $_POST['mprice'] . "','" . $_POST['mimg'] . "')") or die(mysql_error());
+				}
+			}
+			else{
+				echo "Вы не являетесь администратором";
+			}
+		}
+	 ?>
+	 <form name="add" method="post">
+		<input type="text" name="mname" required>
+		<br>
+		<input type="text" name="mweight" required>
+		<br>
+		<input type="text" name="mprice" required>
+		<br>
+		<input type="text" name="mimg" required>
+		<br>
+		<input type="submit" name="add">
+	</form>'
+</div>
