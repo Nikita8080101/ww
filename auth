@@ -1,0 +1,28 @@
+<div class="container" style="margin-top: 60px;">
+	<?php 
+		if(isset($_GET['p'])){
+			if($_GET['p']=='auth'){
+				if(isset($_POST['auth']))
+				{
+					$check = mysql_fetch_array(mysql_query("SELECT `id` FROM `n_accounts` WHERE `login`='" . $_REQUEST['login'] . "' AND `password`='" . $_REQUEST['password'] . "'"));
+                    if ($check[0] == null) {
+                    $error .= 'Неверный логин или пароль';
+                    } else {
+                    $_SESSION['uid'] = $check['id'];
+                    echo '<script>document.location.href="/nikita";</script>';
+                	}
+                	echo $error;;
+				}
+			}
+		}
+	 ?>
+	<form name="auth" method="POST" align="center"> 
+		<p>Логин:</p>
+		<input type="text" name="login" placeholder="Логин" required="required">
+		<br>
+		<p>Пароль:</p>
+		<input type="password" name="password" placeholder="Пароль" required="required">
+		<br> <br>
+		<input type="submit" value="Авторизоваться" name="auth">
+	</form>
+</div>
