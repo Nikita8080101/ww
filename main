@@ -1,0 +1,66 @@
+<div class="intro">
+		<div class="container">
+			
+		</div>
+	</div>
+	<section class="about" id="about">
+		<div class="container">
+			<div class="about_logo">
+				<h1 align="center">О нас</h1>
+				<p align="center" >
+					Ресторан «ПИRS» - это заведение с концепцией средиземноморской кухни. Помимо приятной <br> 
+					морской атмосферы работает полноценное меню и карта бара с винами и коктейлями под блюда.<br> 
+					Главное его достоинство - это возможность провожать красивые закаты и любоваться на воду. <br><br>
+					Для гостей ресторанов на Кремлевской набережной - бесплатная парковка! <br><br>
+					С 14 июня открывается летняя терраса ресторана. Приходите насладиться шикарным видом и 
+					средиземноморской кухней в ресторан ПИRS!
+				</p>
+				<div class="imm" align="center">
+					<img src="img/q.jpg" alt="">
+					<img src="img/w.jpg" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<section style="min-height: 100%;">
+		<div class="container" id="menu">
+			<div>
+				<table class="list" align="center" border="1" cellspacing="35">
+					<tr>
+						<th><h1>Меню</h1></th>
+					</tr>
+					<tr>
+					    <th>Название блюда</th>
+					    <th>Гр.</th>
+					    <th>Цена</th>
+					 </tr>
+					<?php 
+						$menu_lists = mysql_query("SELECT * FROM n_menu");
+						while ($menu_list = mysql_fetch_array($menu_lists)) {
+							echo '<tr>
+						    <th>'.$menu_list['name'].'</th>
+						    <th>'.$menu_list['weight'].' гр.</th>
+						    <th>'.$menu_list['price'].' руб.</th>';
+						    if(isset($_SESSION['uid']))
+						    {
+						    	$checkadm = mysql_fetch_array(mysql_query("SELECT * FROM `n_accounts` WHERE `id` ='" . $_SESSION['uid'] . "'"));
+						    	if($checkadm['admin']==1){
+						    		echo '<th><a href="/nikita/?edit='.$menu_list['id'].'">Редактировать</a></th>';
+						    	}
+						    }
+						 echo '</tr>';
+						}
+					 ?>
+				</table>
+				<?php 
+				if(isset($_SESSION['uid']))
+						    {
+						    	$checkadm = mysql_fetch_array(mysql_query("SELECT * FROM `n_accounts` WHERE `id` ='" . $_SESSION['uid'] . "'"));
+						    	if($checkadm['admin']==1){
+						    		echo '<a href="/nikita/?p=add">Добавить блюдо</a>';
+						    	} 
+						    }
+				?>
+			</div>
+		</div>
+	</section>
