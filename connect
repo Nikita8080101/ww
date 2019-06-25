@@ -1,0 +1,6 @@
+<?php 
+	$mysql = mysql_connect("localhost", "046446404_321-01", "Qwerty123") or die('Ошибка подключения к абзе данных');
+	mysql_select_db("9172350836_321-01", $mysql) or die('Ошибка выбора базы данных');
+	mysql_query("SET NAMES UTF8");
+	mysql_query("SET CHARSET UTF8");
+?>
